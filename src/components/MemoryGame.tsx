@@ -42,9 +42,9 @@ interface Cell {
 
 const MemoryGame = () => {
   const [matrix, setMatrix] = useState([
-    [0, 0, 2],
-    [2, 3, 3],
-    [4, 4, 4],
+    [0, 3, 2, 9],
+    [2, 7, 3, 6],
+    [0, 7, 6, 9],
   ])
   const [booleanMatrix, setBooleanMatrix] = useState(
     new Array(matrix.length)
