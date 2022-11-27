@@ -9,6 +9,10 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 `
+
+type CardProps = {
+  alreadyClicked: boolean
+}
 const Card = styled.div`
   width: 120px;
   height: 120px;
@@ -24,11 +28,17 @@ const Card = styled.div`
   :hover {
     cursor: pointer;
     background-color: #f5f5f5;
+    cursor: ${(p: CardProps) => p.alreadyClicked && 'default'};
   }
 `
 const Row = styled.div`
   display: flex;
 `
+
+interface Cell {
+  row: number
+  col: number
+}
 
 const MemoryGame = () => {
   const [matrix, setMatrix] = useState([
@@ -41,45 +51,48 @@ const MemoryGame = () => {
       .fill(false)
       .map(() => new Array(matrix[0].length).fill(false)),
   )
-  console.log(booleanMatrix)
 
-  const [prevClick, setPrevClick] = useState(undefined)
-  const [currClick, setCurrClick] = useState(undefined)
+  const [prevClick, setPrevClick] = useState<Cell | undefined>()
 
   const handleClick = (rowIdx: number, colIdx: number) => {
-    setPrevClick(matrix[rowIdx][colIdx])
-    if (prevClick !== undefined) setCurrClick(matrix[rowIdx][colIdx])
+    if (booleanMatrix[rowIdx][colIdx]) return
+    const clickedNumber = matrix[rowIdx][colIdx]
+    const newBooleanMatrix = [...booleanMatrix]
+    newBooleanMatrix[rowIdx][colIdx] = true
+    setBooleanMatrix(newBooleanMatrix)
 
-    if (prevClick !== currClick) {
-      setTimeout(() => {
+    if (prevClick) {
+      console.log('prevClick exists')
+      const prevNumber = matrix[prevClick.row][prevClick.col]
+      if (prevNumber === clickedNumber) {
         setPrevClick(undefined)
-        setCurrClick(undefined)
-      }, 2000)
+      } else {
+        setTimeout(() => {
+          newBooleanMatrix[prevClick.row][prevClick.col] = false
+          newBooleanMatrix[rowIdx][colIdx] = false
+          setBooleanMatrix(newBooleanMatrix)
+          setPrevClick(undefined)
+        }, 1000)
+      }
+    } else {
+      setPrevClick({
+        row: rowIdx,
+        col: colIdx,
+      })
     }
   }
-
-  useEffect(() => {
-    if (
-      prevClick === currClick &&
-      prevClick !== undefined &&
-      currClick !== undefined
-    )
-      console.log('MATCH!!!!!!!!!!!!')
-  })
-
-  // console.log({prevClick})
-  // console.log({currClick})
 
   return (
     <Container>
       {matrix.map((row, rowIdx) => (
         <Row key={rowIdx}>
-          {row.map((col, colIdx) => (
-            <Card onClick={() => handleClick(rowIdx, colIdx)} key={colIdx}>
-              {prevClick === matrix[rowIdx][colIdx] ||
-              currClick === matrix[rowIdx][colIdx]
-                ? matrix[rowIdx][colIdx]
-                : ''}
+          {row.map((number, colIdx) => (
+            <Card
+              alreadyClicked={booleanMatrix[rowIdx][colIdx]}
+              onClick={() => handleClick(rowIdx, colIdx)}
+              key={colIdx}
+            >
+              {booleanMatrix[rowIdx][colIdx] ? number : ''}
             </Card>
           ))}
         </Row>
