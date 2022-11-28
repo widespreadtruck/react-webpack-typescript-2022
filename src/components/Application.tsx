@@ -1,48 +1,70 @@
-import React, { useEffect, useState } from 'react';
-import './Application.scss';
-import { icons } from './Icons';
+import React, { useEffect, useState } from 'react'
+import { Route, Routes, Link } from 'react-router-dom'
+import './Application.scss'
+import { icons } from './Icons'
 import MemoryGame from './MemoryGame'
+import Home from './Home'
+import Practice from './Practice'
 
 const Application: React.FC = () => {
-  const [counter, setCounter] = useState(0);
-  const [darkTheme, setDarkTheme] = useState(true);
+  // const [counter, setCounter] = useState(0);
+  // const [darkTheme, setDarkTheme] = useState(true);
 
-  /**
-   * On component mount
-   */
-  useEffect(() => {
-    const useDarkTheme = parseInt(localStorage.getItem('dark-mode'));
-    if (isNaN(useDarkTheme)) {
-      setDarkTheme(true);
-    } else if (useDarkTheme == 1) {
-      setDarkTheme(true);
-    } else if (useDarkTheme == 0) {
-      setDarkTheme(false);
-    }
-  }, []);
+  // /**
+  //  * On component mount
+  //  */
+  // useEffect(() => {
+  //   const useDarkTheme = parseInt(localStorage.getItem('dark-mode'));
+  //   if (isNaN(useDarkTheme)) {
+  //     setDarkTheme(true);
+  //   } else if (useDarkTheme == 1) {
+  //     setDarkTheme(true);
+  //   } else if (useDarkTheme == 0) {
+  //     setDarkTheme(false);
+  //   }
+  // }, []);
 
-  /**
-   * On Dark theme change
-   */
-  useEffect(() => {
-    if (darkTheme) {
-      localStorage.setItem('dark-mode', '1');
-      document.body.classList.add('dark-mode');
-    } else {
-      localStorage.setItem('dark-mode', '0');
-      document.body.classList.remove('dark-mode');
-    }
-  }, [darkTheme]);
+  // /**
+  //  * On Dark theme change
+  //  */
+  // useEffect(() => {
+  //   if (darkTheme) {
+  //     localStorage.setItem('dark-mode', '1');
+  //     document.body.classList.add('dark-mode');
+  //   } else {
+  //     localStorage.setItem('dark-mode', '0');
+  //     document.body.classList.remove('dark-mode');
+  //   }
+  // }, [darkTheme]);
 
-  /**
-   * Toggle Theme
-   */
-  function toggleTheme() {
-    setDarkTheme(!darkTheme);
-  }
+  // /**
+  //  * Toggle Theme
+  //  */
+  // function toggleTheme() {
+  //   setDarkTheme(!darkTheme);
+  // }
 
   return (
-      <MemoryGame />
+    <div>
+      <ul style={{display: 'flex'}}>
+        <li style={{ margin: '20px' }}>
+          <Link to='/'>Home</Link>
+        </li>
+        <li style={{ margin: '20px' }}>
+          <Link to='/practice'>Practice</Link>
+        </li>
+        <li style={{ margin: '20px' }}>
+          <Link to='/memory-game'>Memory Game</Link>
+        </li>
+      </ul>
+      <div>I am Application component</div>
+      <Routes>
+        <Route path={'/'} element={<Home />} />
+        <Route path={'/practice'} element={<Practice />} />
+        <Route path={'/memory-game'} element={<MemoryGame />} />
+      </Routes>
+    </div>
+    // <MemoryGame />
     // <div id='erwt'>
     //   <div className='header'>
     //     <div className='main-heading'>
@@ -118,7 +140,7 @@ const Application: React.FC = () => {
     //     </div>
     //   </div>
     // </div>
-  );
-};
+  )
+}
 
-export default Application;
+export default Application
