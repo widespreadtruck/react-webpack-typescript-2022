@@ -62,19 +62,19 @@ const Application: React.FC = () => {
     <Container>
       <Menu>
         <List>
-          <Link to='/'>Home</Link>
+          <Link to='/'>Sudoku</Link>
         </List>
-        <List>
+        {/* <List>
           <Link to='/sudoku'>Sudoku</Link>
-        </List>
+        </List> */}
         <List>
           <Link to='/memory-game'>Memory Game</Link>
         </List>
       </Menu>
 
       <Routes>
-        <Route path={'/'} element={<Home />} />
-        <Route path={'/sudoku'} element={<Sudoku />} />
+        <Route path={'/'} element={<Sudoku />} />
+        <Route path={'/home'} element={<Home />} />
         <Route path={'/memory-game'} element={<MemoryGame />} />
       </Routes>
     </Container>
