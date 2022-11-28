@@ -4,7 +4,8 @@ import './Application.scss'
 import { icons } from './Icons'
 import MemoryGame from './MemoryGame'
 import Home from './Home'
-import Practice from './Practice'
+import Sudoku from './Sudoku'
+import styled from 'styled-components'
 
 const Application: React.FC = () => {
   // const [counter, setCounter] = useState(0);
@@ -44,26 +45,39 @@ const Application: React.FC = () => {
   //   setDarkTheme(!darkTheme);
   // }
 
+  const Container = styled.div`
+    width: 100%;
+    height: 100vh;
+  `
+  const Menu = styled.ul`
+    height: 30px;
+    display: flex;
+  `
+  const List = styled.li`
+    margin-left: 20px;
+    display: block;
+  `
+
   return (
-    <div>
-      <ul style={{display: 'flex'}}>
-        <li style={{ margin: '20px' }}>
+    <Container>
+      <Menu>
+        <List>
           <Link to='/'>Home</Link>
-        </li>
-        <li style={{ margin: '20px' }}>
-          <Link to='/practice'>Practice</Link>
-        </li>
-        <li style={{ margin: '20px' }}>
+        </List>
+        <List>
+          <Link to='/sudoku'>Sudoku</Link>
+        </List>
+        <List>
           <Link to='/memory-game'>Memory Game</Link>
-        </li>
-      </ul>
-      <div>I am Application component</div>
+        </List>
+      </Menu>
+
       <Routes>
         <Route path={'/'} element={<Home />} />
-        <Route path={'/practice'} element={<Practice />} />
+        <Route path={'/sudoku'} element={<Sudoku />} />
         <Route path={'/memory-game'} element={<MemoryGame />} />
       </Routes>
-    </div>
+    </Container>
     // <MemoryGame />
     // <div id='erwt'>
     //   <div className='header'>
