@@ -5,6 +5,7 @@ import { icons } from './Icons'
 import MemoryGame from './MemoryGame'
 import Home from './Home'
 import Sudoku from './Sudoku'
+import Wordle from './Wordle'
 import styled from 'styled-components'
 
 const Application: React.FC = () => {
@@ -62,19 +63,20 @@ const Application: React.FC = () => {
     <Container>
       <Menu>
         <List>
-          <Link to='/'>Sudoku</Link>
+          <Link to='/'>Wordle</Link>
         </List>
-        {/* <List>
+        <List>
           <Link to='/sudoku'>Sudoku</Link>
-        </List> */}
+        </List>
         <List>
           <Link to='/memory-game'>Memory Game</Link>
         </List>
       </Menu>
 
       <Routes>
-        <Route path={'/'} element={<Sudoku />} />
-        <Route path={'/home'} element={<Home />} />
+        <Route path={'/'} element={<Wordle />} />
+        <Route path={'/sudoku'} element={<Sudoku />} />
+        {/* <Route path={'/home'} element={<Home />} /> */}
         <Route path={'/memory-game'} element={<MemoryGame />} />
       </Routes>
     </Container>
